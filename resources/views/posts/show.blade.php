@@ -6,7 +6,6 @@
 
         <!-- Fonts -->
         <link href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
-
       
     </head>
     <body class="antialiased">
@@ -18,6 +17,9 @@
                    <h3>本文</h3>
                    <p class='body'>{{ $post->body }}</p>
                </div>
+       </div>
+       <div class = 'edit'>
+           <a href="/posts/{{ $post->id }}/edit">edit</a>
        </div>
        <div class = 'footer'>
            <a href="/">戻る</a>

@@ -10,7 +10,8 @@ class PostController extends Controller
 {
     public function index(Post $post)
     {
-        return view('posts/index')->with(['posts' => $post->getPaginateByLimit()]);
+        return view('posts/index')->with(['posts' => $post->getPaginateByLimit(5)]);
+        /*取得したDBのデータ[$post->get()]を”posts”という変数名でViewに渡している*/
     }
     
     public function show(Post $post)
@@ -36,5 +37,20 @@ class PostController extends Controller
         作成した投稿の詳細ページへ遷移させる*/
         /*⇒リクエスト情報として受け取ったタイトル・本文にて、
         postsテーブルに新規データとして登録実行*/
+    }
+    
+    public function edit(Post $post)
+    /*$post=URLで渡ってきた値をidに持つ投稿データ*/
+    {
+        return view('posts/edit')->with(['post' => $post]);
+        /*editのviewに$postという変数を渡して、edit.blade.phpを返却している*/
+    }
+    
+    public function update(PostRequest $request, Post $post)
+    {
+        $input_post = $request['post'];
+        $post->fill($input_post)->save();
+
+        return redirect('/posts/' . $post->id);
     }
 }
