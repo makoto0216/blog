@@ -26,6 +26,16 @@
                <!--TEXTAREAタグは、INPUTタグと違い、長い文章や改行を許容できる-->
                <p class="body__error" style="color:red">{{ $errors->first('post.body') }}</p>
            </div>
+           <div class="category">
+               <h2>Category</h2>
+               <div class="category">
+                    <select name="post[category_id]">
+                        @foreach($categories as $category)
+                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+           </div>
            <div>
                <input type="submit" value="store">
            </div>
