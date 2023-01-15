@@ -9,6 +9,10 @@
       
     </head>
     <body class="antialiased">
+        <x-app-layout>
+         <x-slot name="header">
+        　投稿詳細画面
+    </x-slot>
        <h1 class = 'title'>
            {{ $post->title }}
        </h1>
@@ -25,5 +29,6 @@
        <div class = 'footer'>
            <a href="/">戻る</a>
     　 </div>
+    　 </x-app-layout>
     </body>
 </html>

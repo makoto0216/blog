@@ -10,6 +10,10 @@
       
     </head>
     <body class="antialiased">
+        <x-app-layout>
+         <x-slot name="header">
+        　投稿作成画面
+    </x-slot>
        <h1>Blog Name</h1>
        <form action='/posts' method="POST">
            @csrf
@@ -42,5 +46,6 @@
        <div class = 'footer'>
            <a href="/">戻る</a>
     　 </div>
+    　 </x-app-layout>
     </body>
 </html>

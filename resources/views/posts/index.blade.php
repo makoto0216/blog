@@ -3,14 +3,17 @@
     <head>
         <meta charset="utf-8">
         <title>Blog</title>
-
         <!-- Fonts -->
         <link href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 
       
     </head>
     <body class="antialiased">
-       <h1>Blog Name</h1>
+    <x-app-layout>
+         <x-slot name="header">
+        　投稿一覧画面
+    </x-slot>
+       <h1>Blog Name!</h1>
        <a href="/posts/create">create</a>
        <div class='posts'>
            @foreach($posts as $post)
@@ -40,5 +43,8 @@
             }
         }
        </script>
+       <p class = 'username'>ログインユーザー:{{ Auth::user()->name }}</p>
+       </div>
+       </x-app-layout>
     </body>
 </html>
