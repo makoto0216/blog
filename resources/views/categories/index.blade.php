@@ -10,6 +10,10 @@
       
     </head>
     <body class="antialiased">
+        <x-app-layout>
+    <x-slot name="header">
+        　カテゴリ別投稿一覧画面
+    </x-slot>
        <h1>Blog Name</h1>
        <a href="/posts/create">create</a>
        <div class='posts'>
@@ -43,5 +47,6 @@
        <div class = 'footer'>
            <a href="/">戻る</a>
     　 </div>
+    　 </x-app-layout>
     </body>
 </html>

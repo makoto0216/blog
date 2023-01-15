@@ -1,8 +1,11 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PostController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\PostController;
+use Illuminate\Support\Facades\Route;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,13 +17,29 @@ use App\Http\Controllers\CategoryController;
 |
 */
 
-Route::get('/', [PostController::class, 'index']);
-Route::get('/posts/create',[PostController::class,'create']);
-Route::get('/posts/{post}',[PostController::class,'show']);
-Route::post('/posts',[PostController::class,'store']);
-/*https://〜〜〜/postsのURLでPOSTリクエストのアクセスが来たら、
-PostControllerのstore関数が実行されるルーティング*/ 
-Route::get('/posts/{post}/edit', [PostController::class, 'edit']);
-Route::put('/posts/{post}', [PostController::class, 'update']);
-Route::delete('/posts/{post}', [PostController::class,'delete']);
-Route::get('/categories/{category}', [CategoryController::class,'index']);
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::controller(PostController::class)->middleware(['auth'])->group(function(){
+    Route::get('/', 'index')->name('index');
+    Route::post('/posts', 'store')->name('store');
+    Route::get('/posts/create', 'create')->name('create');
+    Route::get('/posts/{post}', 'show')->name('show');
+    Route::put('/posts/{post}', 'update')->name('update');
+    Route::delete('/posts/{post}', 'delete')->name('delete');
+    Route::get('/posts/{post}/edit', 'edit')->name('edit');
+});
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+Route::group(['middleware' => ['auth']], function(){
+    Route::get('/categories/{category}', [CategoryController::class,'index']);
+});
+    
+require __DIR__.'/auth.php';
